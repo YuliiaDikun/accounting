@@ -17,6 +17,7 @@ class App extends Component {
         { name: "July", salary: 1500, increase: false, like: false, id: 3 },
       ],
       filter: "",
+      btn: "all",
     };
     this.id = 4;
   }
@@ -62,32 +63,52 @@ class App extends Component {
     }
     return items.filter((item) => item.name.includes(filter));
   };
+
   onUpdateFilter = (filter) => {
     this.setState({
       filter,
     });
   };
 
-  render() {
-    const { data, filter } = this.state;
-    const employees = data.length;
-    const increaseEmp = data.filter((emp) => emp.increase).length;
-    const visibleData = this.searchEmp(data, filter);
-    return (
-      <div className="App">
-        <AppInfo employees={employees} increaseEmp={increaseEmp} />
+  btnPost = (items, btn) => {
+    switch (btn) {
+      case "promoted":
+        return items.filter((emp) => emp.increase);
+      case "salaryMoreThen1000":
+        return items.filter((emp) => emp.salary > 1000);
+      default:
+        return items;
+    }
+  };
 
-        <div className="search-panel">
+  onBtnSelect = (btn) => {
+    this.setState({
+      btn,
+    });
+  };
+
+  render() {
+    const { data, filter, btn } = this.state;
+    const employees = data.length;
+    const increaseEmp = data.filter((emp) => emp.increase);
+    const visibleData = this.btnPost(this.searchEmp(data, filter), btn);
+    return (
+      <section className="App">
+        <AppInfo employees={employees} increaseEmp={increaseEmp.length} />
+
+        <nav className="search-panel">
           <SearchPanel onUpdateFilter={this.onUpdateFilter} />
-          <AppFilter />
-        </div>
-        <EmployeersList
-          data={visibleData}
-          onDelete={this.deleteItem}
-          onToggleProp={this.onToggleProp}
-        />
+          <AppFilter btn={btn} onBtnSelect={this.onBtnSelect} />
+        </nav>
+        <main>
+          <EmployeersList
+            data={visibleData}
+            onDelete={this.deleteItem}
+            onToggleProp={this.onToggleProp}
+          />
+        </main>
         <EmployeersAddForm onAddItem={this.addItem} />
-      </div>
+      </section>
     );
   }
 }

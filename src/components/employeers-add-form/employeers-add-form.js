@@ -31,7 +31,7 @@ class EmployeersAddForm extends Component {
   render() {
     const { name, salary } = this.state;
     return (
-      <div className="app-add-form">
+      <footer className="app-add-form">
         <h3>Add a new employeer</h3>
         <form className="add-form d-flex" onSubmit={this.onFormSubmit}>
           <input
@@ -54,7 +54,7 @@ class EmployeersAddForm extends Component {
             Add
           </button>
         </form>
-      </div>
+      </footer>
     );
   }
 }
