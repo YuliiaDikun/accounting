@@ -16,6 +16,7 @@ class App extends Component {
         { name: "Alex", salary: 4500, increase: true, like: false, id: 2 },
         { name: "July", salary: 1500, increase: false, like: false, id: 3 },
       ],
+      filter: "",
     };
     this.id = 4;
   }
@@ -55,19 +56,33 @@ class App extends Component {
     }));
   };
 
+  searchEmp = (items, filter) => {
+    if (!filter.length) {
+      return items;
+    }
+    return items.filter((item) => item.name.includes(filter));
+  };
+  onUpdateFilter = (filter) => {
+    this.setState({
+      filter,
+    });
+  };
+
   render() {
-    const employees = this.state.data.length;
-    const increaseEmp = this.state.data.filter((emp) => emp.increase).length;
+    const { data, filter } = this.state;
+    const employees = data.length;
+    const increaseEmp = data.filter((emp) => emp.increase).length;
+    const visibleData = this.searchEmp(data, filter);
     return (
       <div className="App">
         <AppInfo employees={employees} increaseEmp={increaseEmp} />
 
         <div className="search-panel">
-          <SearchPanel />
+          <SearchPanel onUpdateFilter={this.onUpdateFilter} />
           <AppFilter />
         </div>
         <EmployeersList
-          data={this.state.data}
+          data={visibleData}
           onDelete={this.deleteItem}
           onToggleProp={this.onToggleProp}
         />
