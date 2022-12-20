@@ -21,7 +21,18 @@ class App extends Component {
     };
     this.id = 4;
   }
-
+  componentDidMount() {
+    const employees = localStorage.getItem("employees");
+    const parsedEmployees = JSON.parse(employees);
+    if (parsedEmployees) {
+      this.setState({ data: parsedEmployees });
+    }
+  }
+  componentDidUpdate(prevProps, prevState) {
+    if (prevState.data !== this.setState.data) {
+      localStorage.setItem("employees", JSON.stringify(this.state.data));
+    }
+  }
   deleteItem = (id) => {
     this.setState(({ data }) => {
       return {
