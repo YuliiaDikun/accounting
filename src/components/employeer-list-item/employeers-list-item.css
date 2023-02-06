@@ -2,6 +2,7 @@
   padding: 15px 20px;
   border-bottom: 1px solid #39603d;
   color: #3c403d;
+
 }
 
 .list-group-item:last-child {
@@ -12,7 +13,7 @@
   line-height: 35px;
   font-size: 20px;
   cursor: pointer;
-  width: 250px;
+  width: 50px;
 }
 
 .list-group-item input {
@@ -20,6 +21,7 @@
   font-size: 20px;
   text-align: center;
   border: 0;
+  width:100px;
 }
 
 .list-group-item button {
@@ -68,5 +70,8 @@
 @media screen and (min-width: 768px) {
   .list-group-item span {    
     width: 550px;
+  }
+  .list-group-item input{
+    width: 350px;
   }
 }

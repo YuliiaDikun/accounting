@@ -11,7 +11,7 @@ const AppFilter = ({ btn, onBtnSelect }) => {
     },
     {
       name: "salaryMoreThen1000",
-      label: "Salary more than 1000$",
+      label: "Salary > 1000$",
     },
   ];
   const buttons = buttonsData.map(({ name, label }) => {
